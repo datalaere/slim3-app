@@ -5,5 +5,5 @@ $app->get('/[{name}]', function ($request, $response, $args) {
     $this->logger->info('INFO', $args);
 
     // Render index view
-    return $this->renderer->render($response, 'index.phtml', $args);
+    return $this->view->render($response, 'home.twig', $args);
 });

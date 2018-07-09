@@ -1,4 +1,5 @@
 <?php
+
 // DIC configuration
 
 $container = $app->getContainer();
@@ -7,6 +8,20 @@ $container = $app->getContainer();
 $container['renderer'] = function ($c) {
     $settings = $c->get('settings')['renderer'];
     return new Slim\Views\PhpRenderer($settings['template_path']);
+};
+
+// optional php view renderer
+$container['view'] = function ($c) {
+    $settings = $c->get('settings')['renderer'];
+    $view = new Slim\Views\Twig($settings['template_path'], [
+        'cache' => $settings['cache_path'],
+    ]);
+
+    $view->addExtension(new Slim\Views\TwigExtension(
+            $c->router, $c->request->getUri
+    ));
+
+    return $view;
 };
 
 // monolog

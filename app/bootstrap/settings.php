@@ -7,11 +7,12 @@ return [
 // Renderer settings
         'renderer' => [
             'template_path' => $webroot_dir . 'app/resources/views/',
+            'cache_path' => APP_CACHE,
         ],
         // Monolog settings
         'logger' => [
             'name' => APP_NAME,
-            'path' => isset($_ENV['docker']) ? 'php://stdout' : $webroot_dir . 'app/storage/logs/app.log',
+            'path' => $webroot_dir . 'app/storage/logs/app.log',
             'level' => \Monolog\Logger::DEBUG,
         ],
     ],

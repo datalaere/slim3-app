@@ -11,3 +11,5 @@ ini_set('display_errors', 0);
 define('APP_ERROR', false);
 
 define('APP_HEADER', false);
+
+define('APP_CACHE', $webroot_dir . 'app/storage/cache/');
