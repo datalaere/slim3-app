@@ -60,12 +60,13 @@ define('APP_CONTENT_URL', APP_HOME . CONTENT_DIR);
 /**
  * DB settings
  */
+define('DB_DRIVER', env('DB_DRIVER') ?: 'mysql');
 define('DB_NAME', env('DB_NAME'));
 define('DB_USER', env('DB_USER'));
 define('DB_PASSWORD', env('DB_PASSWORD'));
 define('DB_HOST', env('DB_HOST') ?: 'localhost');
-define('DB_CHARSET', 'utf8mb4');
-define('DB_COLLATE', '');
+define('DB_CHARSET', 'utf8');
+define('DB_COLLATE', 'utf8_unicode_ci');
 define('DB_PREFIX', env('DB_PREFIX') ?: '');
 
 // Instantiate the app
@@ -74,6 +75,9 @@ $app = new \Slim\App($settings);
 
 // Set up dependencies
 require APP_SRC . 'dependencies.php';
+
+// Set up controllers
+require APP_SRC . 'controllers.php';
 
 // Register middleware
 require APP_SRC . 'middleware.php';

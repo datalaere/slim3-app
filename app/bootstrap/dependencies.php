@@ -18,10 +18,16 @@ $container['view'] = function ($c) {
     ]);
 
     $view->addExtension(new Slim\Views\TwigExtension(
-            $c->router, $c->request->getUri
+            $c->router, $c->request->getUri()
     ));
 
     return $view;
+};
+
+
+$container['renderer'] = function ($c) {
+    $settings = $c->get('settings')['renderer'];
+    return new Slim\Views\PhpRenderer($settings['template_path']);
 };
 
 // monolog
@@ -33,11 +39,12 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
-// http
-$container['http'] = function ($c) {
-    $http = new \GuzzleHttp\Client(
-            ['cookies' => new GuzzleHttp\Cookie\FileCookieJar('cookies.txt')]
-    );
-    $http->getConfig('handler')->push(Tuna\CloudflareMiddleware::create());
-    return $http;
+// db
+$container['db'] = function ($c) {
+    $settings = $c->get('settings')['db'];
+    $capsule = new Illuminate\Database\Capsule\Manager;
+    $capsule->addConnection($settings);
+    $capsule->setAsGlobal();
+    $capsule->bootEloquent();
+    return $capsule;
 };
