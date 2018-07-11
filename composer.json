@@ -18,7 +18,9 @@
         "monolog/monolog": "^1.17",
         "vlucas/phpdotenv": "^2.0.1",
         "oscarotero/env": "^1.1.0",
-        "slim/twig-view": "^2.4"
+        "slim/twig-view": "^2.4",
+        "guzzlehttp/guzzle": "^6.3",
+        "tunaabutbul/cloudflare-middleware": "^1.2"
     },
     "autoload": {
         "psr-4": {

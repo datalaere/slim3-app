@@ -32,3 +32,12 @@ $container['logger'] = function ($c) {
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
     return $logger;
 };
+
+// http
+$container['http'] = function ($c) {
+    $http = new \GuzzleHttp\Client(
+            ['cookies' => new GuzzleHttp\Cookie\FileCookieJar('cookies.txt')]
+    );
+    $http->getConfig('handler')->push(Tuna\CloudflareMiddleware::create());
+    return $http;
+};

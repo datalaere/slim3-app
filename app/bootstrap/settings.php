@@ -7,7 +7,7 @@ return [
 // Renderer settings
         'renderer' => [
             'template_path' => $webroot_dir . 'app/resources/views/',
-            'cache_path' => APP_CACHE,
+            'cache_path' => defined('APP_CACHE') ? APP_CACHE : false,
         ],
         // Monolog settings
         'logger' => [

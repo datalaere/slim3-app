@@ -68,9 +68,6 @@ define('DB_CHARSET', 'utf8mb4');
 define('DB_COLLATE', '');
 define('DB_PREFIX', env('DB_PREFIX') ?: '');
 
-/**
- * Authentication Unique Keys and Salts
- */
 // Instantiate the app
 $settings = require APP_SRC . 'settings.php';
 $app = new \Slim\App($settings);
