@@ -6,14 +6,15 @@
  * and open the template in the editor.
  */
 
-namespace App\Controllers;
+namespace App\Validation\Rules;
 
 use App\Models\User;
+use Respect\Validation\Rules\AbstractRule;
 
-class HomeController extends Controller {
+class EmailExists extends AbstractRule {
 
-    public function index($req, $res, $args) {
-        return $this->view->render($res, 'home.twig');
+    public function validate($input) {
+        return User::where('email', $input)->count() === 0;
     }
 
 }

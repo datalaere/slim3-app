@@ -1,29 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown link
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-        </ul>
-    </div>
-</nav>
+<br>
+<div class="text-center">
+    <a href="{{ path_for('home') }}" class="btn mt-5 mb-3">Home</a>
+
+    {% if auth.check %}
+        <p class="mt-5 mb-3 text-muted text-center">Logged in as: <b>{{ auth.user.name }}</b></p>
+        <a href="{{ path_for('auth.password.change') }}" class="btn mt-5 mb-3">Change password</a>
+        <a href="{{ path_for('auth.logout') }}" class="btn mt-5 mb-3">Sign out</a>
+    {% else %}
+        <a href="{{ path_for('auth.register') }}" class="btn mt-5 mb-3">Sign up</a>
+        <a href="{{ path_for('auth.login') }}" class="btn mt-5 mb-3">Sign in</a>
+    {% endif %}
+</div>

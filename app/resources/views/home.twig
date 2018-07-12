@@ -1,5 +1,18 @@
 {% extends "templates/app.twig" %}
 
 {% block content %}
-    Home {{ path_for('home')}}
+    <div class="form-signin text-center mb-4">
+        <img class="mb-4" src="{{ base_url() }}/public/uploads/slim-logo.png" alt="" width="100" height="50"> <b>v.3</b>
+        <h2 id="welcome">Welcome</h2>
+        <p>Please <a href="{{ path_for('auth.login') }}">login</a> to continue ...</p>
+
+        {% if auth.check %}
+            <p>Slim is a PHP micro framework that helps you
+                quickly write simple yet powerful web applications and APIs. At its core, Slim
+                is a dispatcher that receives an HTTP request, invokes an appropriate callback
+                routine, and returns an HTTP response. That’s it.</p>
+            {% endif %}
+
+        {% include 'templates/partials/nav.twig' %}
+    </div>
 {% endblock %}

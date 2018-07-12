@@ -4,13 +4,12 @@
 
 $container = $app->getContainer();
 
-// view renderer
-$container['renderer'] = function ($c) {
-    $settings = $c->get('settings')['renderer'];
-    return new Slim\Views\PhpRenderer($settings['template_path']);
+// Auth
+$container['auth'] = function ($c) {
+    return new App\Auth\Auth;
 };
 
-// optional php view renderer
+// Twig view renderer
 $container['view'] = function ($c) {
     $settings = $c->get('settings')['renderer'];
     $view = new Slim\Views\Twig($settings['template_path'], [
@@ -21,13 +20,29 @@ $container['view'] = function ($c) {
             $c->router, $c->request->getUri()
     ));
 
+    $view->getEnvironment()->addGlobal('auth', [
+        'check' => $c->auth->check(),
+        'user' => $c->auth->user()
+    ]);
+
+    $view->getEnvironment()->addGlobal('flash', $c->flash);
+
     return $view;
 };
 
+// Flash messages
+$container['flash'] = function ($c) {
+    return new Slim\Flash\Messages();
+};
 
-$container['renderer'] = function ($c) {
-    $settings = $c->get('settings')['renderer'];
-    return new Slim\Views\PhpRenderer($settings['template_path']);
+// CSRF
+$container['csrf'] = function ($c) {
+    $guard = new \Slim\Csrf\Guard();
+    $guard->setFailureCallable(function ($req, $res, $next) {
+        $req = $req->withAttribute("csrf_status", false);
+        return $next($req, $res);
+    });
+    return $guard;
 };
 
 // monolog
@@ -40,11 +55,20 @@ $container['logger'] = function ($c) {
 };
 
 // db
-$container['db'] = function ($c) {
-    $settings = $c->get('settings')['db'];
-    $capsule = new Illuminate\Database\Capsule\Manager;
-    $capsule->addConnection($settings);
-    $capsule->setAsGlobal();
-    $capsule->bootEloquent();
+$settings = $container->get('settings')['db'];
+$capsule = new Illuminate\Database\Capsule\Manager;
+$capsule->addConnection($settings);
+$capsule->setAsGlobal();
+$capsule->bootEloquent();
+$container['db'] = function ($c) use ($capsule) {
     return $capsule;
 };
+
+// validation
+use Respect\Validation\Validator as v;
+
+$container['validator'] = function ($c) {
+    return new App\Validation\Validator;
+};
+v::with('App\\Validation\\Rules\\');
+

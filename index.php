@@ -28,6 +28,9 @@ if (file_exists($webroot_dir . 'app/.env')) {
     $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'APP_HOME', 'APP_SITEURL']);
 }
 
+// Set default timezone
+date_default_timezone_set(env('TIMEZONE') ?: 'Europe/Copenhagen');
+
 /**
  * Set up our global environment constant and load its config first
  * Default: production

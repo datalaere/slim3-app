@@ -1,0 +1,32 @@
+{% extends "templates/app.twig" %}
+
+{% block content %}
+    <form action="{{ path_for('auth.password.change') }}" class="form-signin"  method="post" autocomplete="off">
+        <div class="text-center mb-4">
+            <img class="mb-4" src="{{ base_url() }}/public/uploads/slim-logo.png" alt="" width="100" height="50">
+            <h1 class="h3 mb-3 font-weight-normal">CHANGE PASSWORD</h1>
+        </div>
+
+        <div class="form-label-group">
+            <input type="password" name="password_old" value="{{ input.email }}" id="inputCurrentPassword" class="form-control {{ errors.password_old ? 'is-invalid' : '' }}" placeholder="Current Password" required="" autofocus="">
+            <label for="inputCurrentPassword">Current password</label>
+            {% if errors.password_old %}
+                <span class="invalid-feedback">{{ errors.password_old | first }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-label-group">
+            <input type="password" name="password" value="{{ input.password }}" id="inputPassword" class="form-control {{ errors.password ? 'is-invalid' : '' }}" placeholder="New Password" required="">
+            <label for="inputPassword">New Password</label>
+            {% if errors.password %}
+                <span class="invalid-feedback">{{ errors.password | first }}</span>
+            {% endif %}
+        </div>
+
+        {{ csrf.field | raw }}
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
+        {% include 'templates/partials/nav.twig' %}
+        <p class="mt-5 mb-3 text-muted text-center">© 2017-2018</p>
+    </form>
+{% endblock %}
