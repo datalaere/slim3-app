@@ -6,8 +6,8 @@
  * and open the template in the editor.
  */
 
-use App\Middleware\AuthMiddleware;
-use App\Middleware\GuestMiddleware;
+use App\Http\Middleware\AuthMiddleware;
+use App\Http\Middleware\GuestMiddleware;
 
 $app->group('', function() {
 // Register

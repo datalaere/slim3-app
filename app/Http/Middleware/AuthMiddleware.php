@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace App\Middleware;
+namespace App\Http\Middleware;
 
 class AuthMiddleware extends Middleware {
 

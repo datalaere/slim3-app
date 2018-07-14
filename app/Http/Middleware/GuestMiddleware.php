@@ -6,14 +6,15 @@
  * and open the template in the editor.
  */
 
-namespace App\Middleware;
+namespace App\Http\Middleware;
 
-class PersistingInputMiddleware extends Middleware {
+class GuestMiddleware extends Middleware {
 
     public function __invoke($req, $res, $next) {
 
-        $this->c->view->getEnvironment()->addGlobal('input', $_SESSION['input']);
-        $_SESSION['input'] = $req->getParams();
+        if ($this->auth->check()) {
+            return $res->withRedirect($this->router->pathFor('home'));
+        }
 
         return $next($req, $res);
     }

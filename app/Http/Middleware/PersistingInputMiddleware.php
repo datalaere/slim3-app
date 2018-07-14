@@ -6,14 +6,14 @@
  * and open the template in the editor.
  */
 
-namespace App\Middleware;
+namespace App\Http\Middleware;
 
-class ValidationErrorsMiddleware extends Middleware {
+class PersistingInputMiddleware extends Middleware {
 
     public function __invoke($req, $res, $next) {
 
-        $this->c->view->getEnvironment()->addGlobal('errors', $_SESSION['errors']);
-        unset($_SESSION['errors']);
+        $this->c->view->getEnvironment()->addGlobal('input', $_SESSION['input']);
+        $_SESSION['input'] = $req->getParams();
 
         return $next($req, $res);
     }

@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace App\Controllers;
+namespace App\Http\Controllers;
 
 use App\Models\User;
 

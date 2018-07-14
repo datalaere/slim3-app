@@ -8,7 +8,6 @@ $root_dir = dirname(__FILE__);
 /** @var string Document Root */
 $webroot_dir = $root_dir . '/';
 
-
 /**
  * Load Composer autoload
  */
@@ -22,8 +21,8 @@ Env::init();
 /**
  * Use Dotenv to set required environment variables and load .env file in root
  */
-if (file_exists($webroot_dir . 'app/.env')) {
-    $dotenv = new Dotenv\Dotenv($webroot_dir . 'app/');
+if (file_exists($webroot_dir . 'config/.env')) {
+    $dotenv = new Dotenv\Dotenv($webroot_dir . 'config/');
     $dotenv->load();
     $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'APP_HOME', 'APP_SITEURL']);
 }
@@ -39,7 +38,7 @@ define('APP_ENV', env('APP_ENV') ?: 'production');
 
 define('APP_NAME', env('APP_NAME') ?: 'APP');
 
-$env_config = $webroot_dir . 'app/config/environments/' . APP_ENV . '.php';
+$env_config = $webroot_dir . 'config/environments/' . APP_ENV . '.php';
 
 if (file_exists($env_config)) {
     require_once $env_config;
@@ -54,8 +53,8 @@ define('APP_SITEURL', env('APP_SITEURL'));
 /**
  * Custom Content Directory
  */
-define('APP_SRC', $webroot_dir . 'app/bootstrap/');
-define('APP_VIEWS', $webroot_dir . 'app/resources/views/');
+define('APP_SRC', $webroot_dir . 'bootstrap/');
+define('APP_VIEWS', $webroot_dir . 'resources/views/');
 define('CONTENT_DIR', '/public/');
 define('APP_CONTENT_DIR', $webroot_dir . 'public/');
 define('APP_CONTENT_URL', APP_HOME . CONTENT_DIR);

@@ -6,15 +6,14 @@
  * and open the template in the editor.
  */
 
-namespace App\Middleware;
+namespace App\Http\Middleware;
 
-class GuestMiddleware extends Middleware {
+class ValidationErrorsMiddleware extends Middleware {
 
     public function __invoke($req, $res, $next) {
 
-        if ($this->auth->check()) {
-            return $res->withRedirect($this->router->pathFor('home'));
-        }
+        $this->c->view->getEnvironment()->addGlobal('errors', $_SESSION['errors']);
+        unset($_SESSION['errors']);
 
         return $next($req, $res);
     }
