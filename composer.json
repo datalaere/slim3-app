@@ -1,14 +1,15 @@
 {
-    "name": "thom855j/slim-app",
+    "name": "thom855j/slim3-app",
+    "type": "project",
     "description": "A Slim Framework skeleton application for rapid development",
     "keywords": ["microframework", "rest", "router", "psr7"],
-    "homepage": "http://github.com/thom855j/slim-app",
+    "homepage": "http://github.com/thom855j/slim3-app",
     "license": "MIT",
     "authors": [
         {
             "name": "Thomas Elvin",
-            "email": "info@websupport.dk",
-            "homepage": "http://websupport.dk/"
+            "email": "info@datalaere.dk",
+            "homepage": "http://datalaere.dk/"
         }
     ],
     "require": {
