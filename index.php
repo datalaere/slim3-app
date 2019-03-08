@@ -22,7 +22,7 @@ Env::init();
  * Use Dotenv to set required environment variables and load .env file in root
  */
 if (file_exists($webroot_dir . 'config/.env')) {
-    $dotenv = new Dotenv\Dotenv($webroot_dir . 'config/');
+    $dotenv = Dotenv\Dotenv::create($webroot_dir . 'config/');
     $dotenv->load();
     $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'APP_HOME', 'APP_SITEURL']);
 }
