@@ -49,8 +49,8 @@ class AuthController extends Controller {
 
         $v = $this->validator->validate($req, [
             'email' => v::noWhitespace()->notEmpty()->email()->emailExists(),
-            'name' => v::notEmpty()->alpha(),
-            'password' => v::noWhitespace()->notEmpty(),
+            'name' => v::notEmpty(),
+            'password' => v::noWhitespace()->notEmpty()->alpha(),
         ]);
 
         if ($v->failed()) {

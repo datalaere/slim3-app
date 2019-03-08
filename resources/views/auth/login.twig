@@ -8,23 +8,23 @@
         </div>
 
         <div class="form-label-group">
-            <input type="email" name="email" value="{{ input.email }}" id="inputEmail" class="form-control {{ errors.email ? 'is-invalid' : '' }}" placeholder="Email address" required="" autofocus="">
             <label for="inputEmail">Email address</label>
+            <input type="email" name="email" value="{{ input.email }}" id="inputEmail" class="form-control {{ errors.email ? 'is-invalid' : '' }}" placeholder="Email address" required="" autofocus="">
             {% if errors.email %}
                 <span class="invalid-feedback">{{ errors.email | first }}</span>
             {% endif %}
         </div>
-
+        <br>
         <div class="form-label-group">
-            <input type="password" name="password" value="{{ input.password }}" id="inputPassword" class="form-control {{ errors.password ? 'is-invalid' : '' }}" placeholder="Password" required="">
             <label for="inputPassword">Password</label>
+            <input type="password" name="password" value="{{ input.password }}" id="inputPassword" class="form-control {{ errors.password ? 'is-invalid' : '' }}" placeholder="Password" required="">
             {% if errors.password %}
                 <span class="invalid-feedback">{{ errors.password | first }}</span>
             {% endif %}
         </div>
 
         {{ csrf.field | raw }}
-
+        <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         {% include 'templates/partials/nav.twig' %}
         <p class="mt-5 mb-3 text-muted text-center">© 2017-2018</p>
