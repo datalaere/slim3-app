@@ -12,23 +12,28 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Respect\Validation\Validator as v;
 
-class AuthController extends Controller {
+class AuthController extends Controller
+{
 
     // Logout
-    public function getLogout($req, $res, $args) {
+    public function getLogout($req, $res, $args)
+    {
         $this->flash->addMessage('info', 'You have been logged out!');
         $this->auth->logout();
         return $res->withRedirect($this->router->pathFor('home'));
     }
 
     // Login
-    public function getLogin($req, $res, $args) {
+    public function getLogin($req, $res, $args)
+    {
         return $this->view->render($res, 'auth/login.twig');
     }
 
-    public function postLogin($req, $res, $args) {
+    public function postLogin($req, $res, $args)
+    {
         $auth = $this->auth->attempt(
-                $req->getParam('email'), $req->getParam('password')
+            $req->getParam('email'),
+            $req->getParam('password')
         );
 
         if (!$auth) {
@@ -41,12 +46,13 @@ class AuthController extends Controller {
     }
 
     // Register
-    public function getRegister($req, $res, $args) {
+    public function getRegister($req, $res, $args)
+    {
         return $this->view->render($res, 'auth/register.twig');
     }
 
-    public function postRegister($req, $res, $args) {
-
+    public function postRegister($req, $res, $args)
+    {
         $v = $this->validator->validate($req, [
             'email' => v::noWhitespace()->notEmpty()->email()->emailExists(),
             'name' => v::notEmpty(),
@@ -72,11 +78,13 @@ class AuthController extends Controller {
     }
 
     // Password change
-    public function getChangePassword($req, $res, $args) {
+    public function getChangePassword($req, $res, $args)
+    {
         return $this->view->render($res, 'auth/password/change.twig');
     }
 
-    public function postChangePassword($req, $res, $args) {
+    public function postChangePassword($req, $res, $args)
+    {
         $v = $this->validator->validate($req, [
             'password_old' => v::noWhitespace()
                     ->notEmpty()
@@ -95,5 +103,4 @@ class AuthController extends Controller {
 
         return $res->withRedirect($this->router->pathFor('home'));
     }
-
 }
