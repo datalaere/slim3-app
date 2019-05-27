@@ -1,13 +1,21 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\GuestMiddleware;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the Router within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+$app->get('/', 'HomeController:index')->setName('home');
+
 
 $app->group('', function() {
 // Register
@@ -33,4 +41,14 @@ $app->group('', function() {
     // Logout
     $this->get('/auth/logout', 'AuthController:getLogout')->setName('auth.logout');
 })->add(new AuthMiddleware($container));
+
+
+$app->get('/test', function ($request, $response, $args) {
+    // Sample log message
+    $this->logger->info('INFO', $args);
+
+    // Render index view
+    return $this->renderer->render($response, 'index.phtml', $args);
+})->setName('test');
+
 

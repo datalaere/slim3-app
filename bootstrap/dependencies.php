@@ -1,34 +1,10 @@
 <?php
 
-// DIC configuration
-
-$container = $app->getContainer();
-
 // Auth
 $container['auth'] = function ($c) {
     return new App\Auth\Auth;
 };
 
-// Twig view renderer
-$container['view'] = function ($c) {
-    $settings = $c->get('settings')['renderer'];
-    $view = new Slim\Views\Twig($settings['template_path'], [
-        'cache' => $settings['cache_path'],
-    ]);
-
-    $view->addExtension(new Slim\Views\TwigExtension(
-            $c->router, $c->request->getUri()
-    ));
-
-    $view->getEnvironment()->addGlobal('auth', [
-        'check' => $c->auth->check(),
-        'user' => $c->auth->user()
-    ]);
-
-    $view->getEnvironment()->addGlobal('flash', $c->flash);
-
-    return $view;
-};
 
 // Flash messages
 $container['flash'] = function ($c) {
