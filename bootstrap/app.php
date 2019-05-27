@@ -2,6 +2,20 @@
 
 /*
 |--------------------------------------------------------------------------
+| Get settings
+|--------------------------------------------------------------------------
+|
+| Before we can do anything we need settings for setting the application.
+|
+*/
+
+if (file_exists($root_dir . '/env.ini')) {
+    $_ENV = parse_ini_file($root_dir . '/env.ini');
+    $settings = require $root_dir . '/config/' . $_ENV['APP_ENV'] . '.php';
+}
+
+/*
+|--------------------------------------------------------------------------
 | Create The Application
 |--------------------------------------------------------------------------
 |
@@ -11,8 +25,8 @@
 |
 */
 
-$settings = require $root_dir . '/config/settings.php';
 $app = new \Slim\App($settings);
+$container = $app->getContainer();
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +37,6 @@ $app = new \Slim\App($settings);
 | we will be able to resolve them when needed.
 |
 */
-
-$container = $app->getContainer();
 
 // Twig view renderer
 $container['view'] = function ($c) {

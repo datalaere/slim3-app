@@ -16,4 +16,7 @@ require $root_dir . '/vendor/autoload.php';
  */
 require $root_dir . '/bootstrap/app.php';
 
+/**
+ * Run App
+ */
 //$app->run();
