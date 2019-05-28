@@ -21,7 +21,7 @@ class User extends Model {
 
     public function setPassword($password) {
         return $this->update([
-                    'password' => password_hash($password, PASSWORD_DEFAULT),
+            'password' => password_hash($password, PASSWORD_DEFAULT),
         ]);
     }
 

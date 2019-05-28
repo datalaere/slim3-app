@@ -8,6 +8,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\Middleware;
+
 class AuthMiddleware extends Middleware {
 
     public function __invoke($req, $res, $next) {

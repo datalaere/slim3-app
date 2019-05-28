@@ -6,13 +6,13 @@
  * and open the template in the editor.
  */
 
-namespace App\Http\Middleware;
+namespace App\Services;
 
-class Middleware {
+class Controller {
 
     protected $c;
 
-    public function __construct($container) {
+    function __construct($container) {
         $this->c = $container;
     }
 

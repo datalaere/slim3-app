@@ -8,6 +8,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\Middleware;
+
 class CsrfMiddleware extends Middleware {
 
     public function __invoke($req, $res, $next) {

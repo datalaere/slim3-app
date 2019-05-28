@@ -8,7 +8,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Services\Controller;
 use App\Models\User;
 use Respect\Validation\Validator as v;
 

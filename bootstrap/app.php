@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Get settings
+| Config settings
 |--------------------------------------------------------------------------
 |
 | Before we can do anything we need settings for setting the application.
@@ -11,22 +11,27 @@
 
 if (file_exists($root_dir . '/env.ini')) {
     $_ENV = parse_ini_file($root_dir . '/env.ini');
-    $settings = require $root_dir . '/config/' . $_ENV['APP_ENV'] . '.php';
+    $settings = require $root_dir . '/config/environments/' . $_ENV['APP_ENV'] . '.php';
 }
 
 /*
-|--------------------------------------------------------------------------
-| Create The Application
-|--------------------------------------------------------------------------
-|
-| The first thing we will do is create a new application instance
-| which serves as the "glue" for all the components, and is
-| the IoC container for the system binding all of the various parts.
-|
+  |--------------------------------------------------------------------------
+  | Include The Compiled File
+  |--------------------------------------------------------------------------
+  |
+  | To dramatically increase your application's performance, you may use a
+  | compiled file which contains all of the commonly used bootstrap files
+  | by request.
+  |
 */
 
-$app = new \Slim\App($settings);
-$container = $app->getContainer();
+if ($_ENV['APP_ENV'] == 'production' && file_exists($root_dir . '/bootstrap/cache/compiled.php')) {
+    return require $root_dir .'/bootstrap/cache/compiled.php';
+} elseif(!file_exists($root_dir . '/bootstrap/cache/compiled.php')) {
+    require $root_dir . '/config/framework/compiler.php';
+} else {
+    unlink($root_dir . '/bootstrap/cache/compiled.php');
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -38,36 +43,30 @@ $container = $app->getContainer();
 |
 */
 
-// Twig view renderer
-$container['view'] = function ($c) {
-    $settings = $c->get('settings')['renderer'];
-    $view = new Slim\Views\Twig($settings['template_path'], [
-        'cache' => $settings['cache_path'],
-    ]);
-
-    $basePath = rtrim(str_ireplace('index.php', '', $c->request->getUri()->getBasePath()), '/');
-    $view->addExtension(new Slim\Views\TwigExtension(
-            $c->router, $basePath
-    ));
-
-    $view->getEnvironment()->addGlobal('auth', [
-        'check' => $c->auth->check(),
-        'user' => $c->auth->user()
-    ]);
-
-    $view->getEnvironment()->addGlobal('flash', $c->flash);
-
-    return $view;
-};
+require $root_dir . '/config/framework/app.php';
+require $root_dir . '/config/framework/session.php';
+require $root_dir . '/config/framework/view.php';
+require $root_dir . '/config/framework/database.php';
+require $root_dir . '/config/framework/validation.php';
+require $root_dir . '/config/framework/logger.php';
+require $root_dir . '/config/framework/auth.php';
+require $root_dir . '/config/framework/csrf.php';
+require $root_dir . '/config/framework/flash.php';
 
 /*
 |--------------------------------------------------------------------------
-| Routes
+| Routes, Controllers and Middleware
 |--------------------------------------------------------------------------
 |
 | To actually show something we have to include our routes into the system.
 |
 */
+
+use Slim\Http\Request;
+use Slim\Http\Response;
+
+require $root_dir . '/config/framework/middleware.php';
+require $root_dir . '/config/framework/controllers.php';
 
 require $root_dir . '/routes/web.php';
 require $root_dir . '/routes/api.php';
