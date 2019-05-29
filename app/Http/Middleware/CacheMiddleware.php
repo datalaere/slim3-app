@@ -16,26 +16,9 @@ class CacheMiddleware extends Middleware {
 
         $key = $req->getUri()->getPath();
 
-        if( $this->cache->get($key) ) {
-            $body = $this->cache->get($key);
+        $this->c->cache->add($key, $res->getBody()->__toString());
 
-            $headers = new Headers;
-            foreach ($res->getHeaders() as $header => $value) {
-                $headers->set($header, $value);
-            }
-
-            return (
-                new Response($res->getStatusCode(), $headers)
-            )->write($body);
-        }
-
-        $response = $next($req, $res);
-
-        if( $response->isOk() ) {
-            $this->cache->add($key, $response->getBody()->__toString());
-        }
-
-        return $response;
+        return $next($req, $res);
 
       }
 }

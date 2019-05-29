@@ -3,7 +3,8 @@
 return [
     'settings' => [
         'displayErrorDetails' => false, // set to false in production
-        'addContentLengthHeader' => false, // Allow the web server to send the content-length header
+        'addContentLengthHeader' => true, // Allow the web server to send the content-length header
+        'routerCacheFile' => $root_dir . '/storage/routes/cache',
         // Renderer settings
         'renderer' => [
             'debug' => false,

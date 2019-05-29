@@ -20,3 +20,8 @@ require $root_dir . '/bootstrap/app.php';
  * Run App
  */
 $app->run();
+
+/**
+ * Run Cache
+ */
+
