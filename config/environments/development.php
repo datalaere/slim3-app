@@ -6,13 +6,18 @@ return [
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
         // Renderer settings
         'renderer' => [
+            'debug' => true,
             'template_path' => $root_dir . '/resources/views/',
             'cache_path' => false,
+        ],
+        'cache' => [
+            'cache_path' => $root_dir . '/storage/cache/',
+            'enabled' => false,
         ],
         // Monolog settings
         'logger' => [
             'name' => $_ENV['APP_NAME'] ?: 'Slim 3 App',
-            'path' => $root_dir . '/storage/logs/app.log',
+            'path' => $root_dir . '/storage/logs/error.log',
             'level' => \Monolog\Logger::DEBUG,
         ],
        'connections' => [

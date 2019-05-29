@@ -8,7 +8,7 @@
 
 namespace App\Services;
 
-class Middleware {
+class Handler {
 
     protected $c;
 

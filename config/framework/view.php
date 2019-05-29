@@ -4,7 +4,8 @@
 $container['view'] = function ($c) {
     $settings = $c->get('settings')['renderer'];
     $view = new Slim\Views\Twig($settings['template_path'], [
-        'cache' => $settings['cache_path'],
+        'debug' => $settings['debug'],
+        'cache' => $settings['cache_path']
     ]);
 
     $basePath = rtrim(str_ireplace('index.php', '', $c->request->getUri()->getBasePath()), '/');

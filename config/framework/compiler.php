@@ -15,6 +15,8 @@ if(!file_exists($compiledPath)){
         $src .'database.php', 
         $src .'validation.php',
         $src .'logger.php',
+        $src .'handlers.php',
+        $src .'cache.php',
         $src .'auth.php',
         $src .'csrf.php',
         $src .'flash.php',

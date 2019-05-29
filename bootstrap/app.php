@@ -27,9 +27,9 @@ if (file_exists($root_dir . '/env.ini')) {
 
 if ($_ENV['APP_ENV'] == 'production' && file_exists($root_dir . '/bootstrap/cache/compiled.php')) {
     return require $root_dir .'/bootstrap/cache/compiled.php';
-} elseif(!file_exists($root_dir . '/bootstrap/cache/compiled.php')) {
+} elseif($_ENV['APP_ENV'] == 'production' && !file_exists($root_dir . '/bootstrap/cache/compiled.php')) {
     require $root_dir . '/config/framework/compiler.php';
-} else {
+} elseif($_ENV['APP_ENV'] == 'development' && file_exists($root_dir . '/bootstrap/cache/compiled.php')) {
     unlink($root_dir . '/bootstrap/cache/compiled.php');
 }
 
@@ -46,9 +46,11 @@ if ($_ENV['APP_ENV'] == 'production' && file_exists($root_dir . '/bootstrap/cach
 require $root_dir . '/config/framework/app.php';
 require $root_dir . '/config/framework/session.php';
 require $root_dir . '/config/framework/view.php';
+require $root_dir . '/config/framework/cache.php';
 require $root_dir . '/config/framework/database.php';
 require $root_dir . '/config/framework/validation.php';
 require $root_dir . '/config/framework/logger.php';
+require $root_dir . '/config/framework/handlers.php';
 require $root_dir . '/config/framework/auth.php';
 require $root_dir . '/config/framework/csrf.php';
 require $root_dir . '/config/framework/flash.php';
