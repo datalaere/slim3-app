@@ -20,6 +20,7 @@ if(!file_exists($compiledPath)){
         $src .'auth.php',
         $src .'csrf.php',
         $src .'flash.php',
+        $src .'mail.php',
         $src .'middleware.php',
         $src .'controllers.php',
         $routes .'api.php',

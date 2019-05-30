@@ -54,6 +54,7 @@ require $root_dir . '/config/framework/handlers.php';
 require $root_dir . '/config/framework/auth.php';
 require $root_dir . '/config/framework/csrf.php';
 require $root_dir . '/config/framework/flash.php';
+require $root_dir . '/config/framework/mail.php';
 
 /*
 |--------------------------------------------------------------------------

@@ -22,7 +22,8 @@
         "respect/validation": "^1.1",
         "slim/csrf": "^0.8.2",
         "slim/flash": "^0.4.0",
-        "snicholson/slimfilecache": "~1.0"
+        "snicholson/slimfilecache": "~1.0",
+        "andrewdyer/slim3-mailer": "^1.1"
     },
     "autoload": {
         "psr-4": {

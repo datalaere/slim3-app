@@ -21,6 +21,14 @@ return [
             'path' => $root_dir . '/storage/logs/error.log',
             'level' => \Monolog\Logger::EMERGENCY,
         ],
+        'mail' => [
+            'host'      => '',  // SMTP Host
+            'port'      => '',  // SMTP Port
+            'username'  => '',  // SMTP Username
+            'password'  => '',  // SMTP Password
+            'protocol'  => '',   // SSL or TLS
+            'default'   => ['email' => 'no-reply@mail.com', 'from' => 'Webmaster'],
+        ],
         'connections' => [
             'mysql' => [
                 'driver'    => $_ENV['DB_DRIVER'] ?: 'mysql',

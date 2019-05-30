@@ -43,7 +43,7 @@ $app->group('', function() {
 })->add(new AuthMiddleware($container));
 
 
-$app->get('/test', function ($request, $response, $args) {
+$app->get('/log', function ($request, $response, $args) {
     // Sample log message
     $this->logger->info('INFO', $args);
 
@@ -52,3 +52,14 @@ $app->get('/test', function ($request, $response, $args) {
 })->setName('test');
 
 
+$app->get('/mail', function ($request, $response, $args) {
+    $user = new stdClass;
+    $user->name = 'John Doe';
+    $user->email = 'johndoe@mail.com';
+    
+    $this->mailer->setTo($user->email, $user->name)->sendMessage(new App\Mail\WelcomeMailable($user));
+     
+    $response->getBody()->write('Mail sent!');
+    
+    return $response;
+});
